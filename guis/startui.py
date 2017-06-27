@@ -1,4 +1,4 @@
-from window import *
+from guis.window import *
 
 class StartUI(Window):
     def __init__(self):

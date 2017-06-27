@@ -2,8 +2,7 @@
 
 import sys
 
-from window import *
-from startui import *
+from guis.startui import *
 
 if __name__ == '__main__':
 
