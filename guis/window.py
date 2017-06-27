@@ -16,6 +16,7 @@ class Window(QWidget):
         self.Buttons = {}
         self.Edits = {}
         self.Layouts = {}
+        self.Icons = {}
 
         # Importiere die Einstellungen
         from settings import Settings
@@ -31,6 +32,19 @@ class Window(QWidget):
 
         # Definiere eine vorgefertigte Linie
         self.BorderLine = QLabel("<hr>")
+
+        # Definiere Icons
+        self.Icons["cancel"] = QIcon("res/img/cancel.png")
+        self.Icons["left"] = QIcon("res/img/left.png")
+        self.Icons["right"] = QIcon("res/img/right.png")
+
+        # Definiere einen Abbrechen-Button
+
+
+
+
+
+
 
         # Definiere Labels für Titelleiste
         self.Labels["title"] = QLabel("<h1>" + self.Settings.get("company_name") + "</h1>")
@@ -48,6 +62,13 @@ class Window(QWidget):
         self.Layouts["vboxtitlebar"].addLayout(self.Layouts["hboxtitlebar"])
         self.Layouts["vboxtitlebar"].addWidget(self.BorderLine)
 
+        # Füge Navigationsleiste hinzu
+        self.Layouts["hboxnavbar"] = QHBoxLayout()
+
+        self.Layouts["vboxnavbar"] = QVBoxLayout()
+        self.Layouts["vboxnavbar"].addWidget(self.BorderLine)
+        self.Layouts["vboxnavbar"].addLayout(self.Layouts["hboxnavbar"])
+
         # Initialisiere vertikales Layout
         self.Layouts["vbox"] = QVBoxLayout()
         self.Layouts["vbox"].addLayout(self.Layouts["vboxtitlebar"])
@@ -56,8 +77,36 @@ class Window(QWidget):
         # Setze Layout für das Fenster
         self.setLayout(self.Layouts["vbox"])
 
+    def cancel (self):
+        pass
+
+    def add_cancel_button (self):
+        self.Buttons["cancel"] = QPushButton("Abbrechen")
+        self.Buttons["cancel"].setIcon(self.Icons["cancel"])
+        self.Buttons["cancel"].clicked.connect(self.cancel)
+        self.Layouts["hboxnavbar"].addWidget(self.Buttons["cancel"])
+
+    def back (self):
+        pass
+
+    def add_back_button (self):
+        self.Buttons["back"] = QPushButton("Zurück")
+        self.Buttons["back"].setIcon(self.Icons["back"])
+        self.Buttons["back"].clicked.connect(self.back)
+        self.Layouts["hboxnavbar"].addWidget(self.Buttons["back"])
+
+    def next (self):
+        pass
+
+    def add_next_button(self):
+        self.Buttons["next"] = QPushButton("Weiter")
+        self.Buttons["next"].setIcon(self.Icons["next"])
+        self.Buttons["next"].clicked.connect(self.next)
+        self.Layouts["hboxnavbar"].addWidget(self.Buttons["next"])
+
     def finish_ui (self):
         self.Layouts["vbox"].addStretch()
+        self.Layouts["vbox"].addLayout(self.Layouts["vboxnavbar"])
         self.show()
 
     def update_time (self, time_label):
