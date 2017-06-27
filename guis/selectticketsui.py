@@ -5,14 +5,18 @@ class SelectTicketsUI(Window):
         super().__init__()
         self.init_ui()
 
+    def get_available_tickets (self):
+        names = ['A', 'B', 'C',
+                'D', 'E', 'F',
+                'G', 'H', 'I']
+        return names
+
     def init_ui(self):
 
         grid = QGridLayout()
         self.setLayout(grid)
 
-        names = ['A', 'B', 'C',
-                'D', 'E', 'F',
-                'G', 'H', 'I']
+        names = get_available_tickets()
 
         positions = [(i,j) for i in range(3) for j in range(3)]
 
@@ -22,5 +26,5 @@ class SelectTicketsUI(Window):
                 continue
             button = QPushButton(name)
             grid.addWidget(button, *position)
-        
-        self.show()
+
+        self.finish_ui()
