@@ -14,6 +14,9 @@ class SelectTicketsUI(Window):
             names[ticket.position] = "" + ticket.name + "\n" + str(ticket.price) + " €"
         return names
 
+    def add_to_cart (self):
+        pass
+
     def init_ui(self):
 
         self.Layouts["ticketgrid"] = QGridLayout()
@@ -30,9 +33,12 @@ class SelectTicketsUI(Window):
 
             self.Buttons["tickets"][name] = QPushButton(name)
             self.Buttons["tickets"][name].setFixedHeight(100)
+            self.Buttons["tickets"][name].clicked.connect(self.add_to_cart)
 
             self.Layouts["ticketgrid"].addWidget(self.Buttons["tickets"][name], *position)
 
         self.Layouts["vbox"].addLayout(self.Layouts["ticketgrid"])
+
+        self.add_cancel_button()
 
         self.finish_ui()
