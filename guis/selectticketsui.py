@@ -7,8 +7,8 @@ class SelectTicketsUI(Window):
 
     def init_ui(self):
 
-        grid = QGridLayout()
-        self.setLayout(grid)
+        self.Layouts["ticketgrid"] = QGridLayout()
+        self.Buttons["tickets"] = {}
 
         names = ['A', 'B', 'C',
                 'D', 'E', 'F',
@@ -20,7 +20,9 @@ class SelectTicketsUI(Window):
 
             if name == '':
                 continue
-            button = QPushButton(name)
-            grid.addWidget(button, *position)
-        
+            self.Buttons["tickets"][name] = QPushButton(name)
+            self.Layouts["ticketgrid"].addWidget(self.Buttons["tickets"][name], *position)
+
+        self.Layouts["vbox"].addLayout(self.Layouts["ticketgrid"])
+
         self.show()
