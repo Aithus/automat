@@ -30,7 +30,7 @@ class SelectTicketsUI(Window):
                 continue
 
             self.Buttons["tickets"][name] = QPushButton(name)
-            self.Buttons["tickets"][name].setFixedHeight(200)
+            self.Buttons["tickets"][name].setFixedHeight(175)
 
             self.Layouts["ticketgrid"].addWidget(self.Buttons["tickets"][name], *position)
 
