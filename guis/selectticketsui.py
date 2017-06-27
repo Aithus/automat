@@ -6,9 +6,12 @@ class SelectTicketsUI(Window):
         self.init_ui()
 
     def get_available_tickets (self):
+        import model
         names = ['A', 'B', 'C',
                 'D', 'E', 'F',
                 'G', 'H', 'I']
+        for ticket in model.AvailableTicket.select():
+            names[ticket.position] = "" + ticket.name + "\n" + str(ticket.price) + " €"
         return names
 
     def init_ui(self):
