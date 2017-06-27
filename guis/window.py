@@ -56,6 +56,10 @@ class Window(QWidget):
         # Setze Layout für das Fenster
         self.setLayout(self.Layouts["vbox"])
 
+    def finish_ui (self):
+        self.Layouts["vbox"].addStretch()
+        self.show()
+
     def update_time (self, time_label):
         """ Aktualisiert die Zeit in einem Label """
         import helper

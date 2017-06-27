@@ -7,4 +7,4 @@ class StartUI(Window):
 
     def init_ui(self):
 
-        self.show()
+        self.finish_ui()
