@@ -80,27 +80,30 @@ class Window(QWidget):
     def cancel (self):
         pass
 
-    def add_cancel_button (self):
-        self.Buttons["cancel"] = QPushButton("Abbrechen")
+    def add_cancel_button (self, text = "Abbrechen"):
+        self.Buttons["cancel"] = QPushButton(text)
         self.Buttons["cancel"].setIcon(self.Icons["cancel"])
+        self.Buttons["cancel"].setFixedHeight(50)
         self.Buttons["cancel"].clicked.connect(self.cancel)
         self.Layouts["hboxnavbar"].addWidget(self.Buttons["cancel"])
 
     def back (self):
         pass
 
-    def add_back_button (self):
-        self.Buttons["back"] = QPushButton("Zurück")
-        self.Buttons["back"].setIcon(self.Icons["back"])
+    def add_back_button (self, text = "Zurück"):
+        self.Buttons["back"] = QPushButton(text)
+        self.Buttons["back"].setIcon(self.Icons["left"])
+        self.Buttons["back"].setFixedHeight(50)
         self.Buttons["back"].clicked.connect(self.back)
         self.Layouts["hboxnavbar"].addWidget(self.Buttons["back"])
 
     def next (self):
         pass
 
-    def add_next_button(self):
-        self.Buttons["next"] = QPushButton("Weiter")
-        self.Buttons["next"].setIcon(self.Icons["next"])
+    def add_next_button(self, text = "Weiter"):
+        self.Buttons["next"] = QPushButton(text)
+        self.Buttons["next"].setIcon(self.Icons["right"])
+        self.Buttons["next"].setFixedHeight(50)
         self.Buttons["next"].clicked.connect(self.next)
         self.Layouts["hboxnavbar"].addWidget(self.Buttons["next"])
 

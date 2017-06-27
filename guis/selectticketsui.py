@@ -35,11 +35,12 @@ class SelectTicketsUI(Window):
             self.Buttons["tickets"][name] = QPushButton(name)
             self.Buttons["tickets"][name].setFixedHeight(175)
             self.Buttons["tickets"][name].clicked.connect(self.add_to_cart)
-            
+
             self.Layouts["ticketgrid"].addWidget(self.Buttons["tickets"][name], *position)
 
         self.Layouts["vbox"].addLayout(self.Layouts["ticketgrid"])
 
         self.add_cancel_button()
+        self.add_next_button("Warenkorb ansehen")
 
         self.finish_ui()
