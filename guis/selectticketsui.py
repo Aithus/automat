@@ -42,5 +42,6 @@ class SelectTicketsUI(Window):
         self.Layouts["vbox"].addLayout(self.Layouts["ticketgrid"])
 
         self.add_cancel_button()
+        self.add_next_button("Warenkorb ansehen")
 
         self.finish_ui()
