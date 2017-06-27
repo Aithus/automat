@@ -1,9 +1,8 @@
 from guis.window import *
-from tkinter import *
 
 class SelectTicketsUI(Window):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.init_ui()
 
     def get_available_tickets (self):
@@ -33,7 +32,7 @@ class SelectTicketsUI(Window):
                 continue
 
             self.Buttons["tickets"][name] = QPushButton(name)
-            self.Buttons["tickets"][name].setFixedHeight(175)
+            self.Buttons["tickets"][name].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             self.Buttons["tickets"][name].clicked.connect(self.add_to_cart)
 
             self.Layouts["ticketgrid"].addWidget(self.Buttons["tickets"][name], *position)
