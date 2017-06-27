@@ -16,7 +16,7 @@ class SelectTicketsUI(Window):
         self.Layouts["ticketgrid"] = QGridLayout()
         self.Buttons["tickets"] = {}
 
-        names = get_available_tickets()
+        names = self.get_available_tickets()
 
         positions = [(i,j) for i in range(3) for j in range(3)]
 
@@ -26,6 +26,8 @@ class SelectTicketsUI(Window):
                 continue
 
             self.Buttons["tickets"][name] = QPushButton(name)
+            self.Buttons["tickets"][name].setFixedHeight(100)
+
             self.Layouts["ticketgrid"].addWidget(self.Buttons["tickets"][name], *position)
 
         self.Layouts["vbox"].addLayout(self.Layouts["ticketgrid"])
