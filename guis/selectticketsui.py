@@ -25,4 +25,4 @@ class SelectTicketsUI(Window):
 
         self.Layouts["vbox"].addLayout(self.Layouts["ticketgrid"])
 
-        self.show()
+        self.finish_ui()
