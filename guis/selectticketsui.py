@@ -15,9 +15,11 @@ class SelectTicketsUI(Window):
         return names
 
     def add_to_cart (self):
-        pass
+        sender_text = self.sender().text()
+        self.Labels["info"].setText(sender_text)
 
     def init_ui(self):
+        self.Labels["info"] = QLabel("<h1>Bitte wählen sie die gewünschten Tickets aus ...</h1>")
 
         self.Layouts["ticketgrid"] = QGridLayout()
         self.Buttons["tickets"] = {}
@@ -37,6 +39,7 @@ class SelectTicketsUI(Window):
 
             self.Layouts["ticketgrid"].addWidget(self.Buttons["tickets"][name], *position)
 
+        self.Layouts["vbox"].addWidget(self.Labels["info"])
         self.Layouts["vbox"].addLayout(self.Layouts["ticketgrid"])
 
         self.add_cancel_button()

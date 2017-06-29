@@ -26,6 +26,7 @@ class Window(QDialog):
         self.init_window_ui()
         self.init_must_check()
 
+    # Allgemeine UI-Funktionen
     def init_window_ui (self):
         # Zeige das Fenster im Vollbild
         self.showFullScreen()
@@ -67,44 +68,59 @@ class Window(QDialog):
         self.Layouts["vbox"].addLayout(self.Layouts["vboxtitlebar"])
         # self.Layouts["vbox"].addStretch()
 
+        # Schrift für Buttons anpassen
+        self.set_buttons_style("font-size: 25pt;")
+
         # Setze Layout für das Fenster
         self.setLayout(self.Layouts["vbox"])
 
-    def cancel (self):
-        pass
-
-    def add_cancel_button (self, text = "Abbrechen"):
-        self.Buttons["cancel"] = QPushButton(text)
-        self.Buttons["cancel"].setIcon(self.Icons["cancel"])
-        self.Buttons["cancel"].setFixedHeight(70)
-        self.Buttons["cancel"].clicked.connect(self.cancel)
-        self.Layouts["hboxnavbar"].addWidget(self.Buttons["cancel"])
-
-    def back (self):
-        pass
-
-    def add_back_button (self, text = "Zurück"):
-        self.Buttons["back"] = QPushButton(text)
-        self.Buttons["back"].setIcon(self.Icons["left"])
-        self.Buttons["back"].setFixedHeight(70)
-        self.Buttons["back"].clicked.connect(self.back)
-        self.Layouts["hboxnavbar"].addWidget(self.Buttons["back"])
-
-    def next (self):
-        pass
-
-    def add_next_button(self, text = "Weiter"):
-        self.Buttons["next"] = QPushButton(text)
-        self.Buttons["next"].setIcon(self.Icons["right"])
-        self.Buttons["next"].setFixedHeight(70)
-        self.Buttons["next"].clicked.connect(self.next)
-        self.Layouts["hboxnavbar"].addWidget(self.Buttons["next"])
+    def set_buttons_style (self, style):
+        css = "QPushButton { " + style + " }"
+        self.setStyleSheet(css)
 
     def finish_ui (self):
         #self.Layouts["vbox"].addStretch()
         self.Layouts["vbox"].addLayout(self.Layouts["vboxnavbar"])
         self.show()
 
+    def make_button (self, text, icon = "", action = None, height = 70):
+        """ Erstellt einen vordefinierten Button """
+        button = QPushButton(text)
+        if icon != "":
+            button.setIcon(self.Icons[icon])
+            button.setIconSize(QSize(50, 50))
+        if action != None:
+            button.clicked.connect(action)
+        if height != "full":
+            button.setFixedHeight(height)
+        else:
+            button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        return button
+
+    # Navigationsleiste
+    def cancel (self):
+        self.close()
+
+    def add_cancel_button (self, text = "Abbrechen"):
+        self.Buttons["cancel"] = self.make_button(text = text, icon = "cancel", action = self.cancel)
+        self.Layouts["hboxnavbar"].addWidget(self.Buttons["cancel"])
+
+    def back (self):
+        pass
+
+    def add_back_button (self, text = "Zurück"):
+        self.Buttons["back"] = self.make_button(text = text, icon = "left", action = self.back)
+        self.Layouts["hboxnavbar"].addWidget(self.Buttons["back"])
+
+    def next (self):
+        pass
+
+    def add_next_button(self, text = "Weiter"):
+        self.Buttons["next"] = self.make_button(text = text, icon = "right", action = self.next)
+        self.Layouts["hboxnavbar"].addWidget(self.Buttons["next"])
+
+
+    # Uhrzeitfunktionen
     def update_time (self, time_label):
         """ Aktualisiert die Zeit in einem Label """
         import helper

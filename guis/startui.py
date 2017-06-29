@@ -15,13 +15,10 @@ class StartUI(Window):
         pass
 
     def init_ui(self):
-        self.Buttons["buyticket"] = QPushButton("Ticket kaufen")
-        self.Buttons["buyticket"].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.Buttons["buyticket"].clicked.connect(self.open_buy_ticket)
+        self.Buttons["buyticket"] = self.make_button(text = "Ticket kaufen", action = self.open_buy_ticket, height = "full")
         self.Layouts["vbox"].addWidget(self.Buttons["buyticket"])
 
-        self.Buttons["useticket"] = QPushButton("Ticket einlösen")
-        self.Buttons["useticket"].setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.Buttons["useticket"].clicked.connect(self.open_use_ticket)
+        self.Buttons["useticket"] = self.make_button(text = "Ticket einlösen", action = self.open_use_ticket, height = "full")
         self.Layouts["vbox"].addWidget(self.Buttons["useticket"])
+        
         self.finish_ui()
