@@ -20,6 +20,8 @@ class SelectTicketsUI(Window):
         ticket_name = sender_text.split("\n")[0]
         self.Labels["info"].setText(ticket_name)
 
+    
+
     def init_ui(self):
         # Create information label
         self.Labels["info"] = QLabel("<h1>Bitte wählen sie die gewünschten Tickets aus ...</h1>")

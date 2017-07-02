@@ -6,9 +6,10 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QGridLayout, QSizePolicy)
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtCore import *
+from model import *
 
 class Window(QDialog):
-    def __init__(self, parent = None):
+    def __init__(self, parent = None, cart_activated = True):
         """ Initialisiere das Fenster """
 
         super().__init__(parent)
@@ -17,10 +18,22 @@ class Window(QDialog):
         self.Edits = {}
         self.Layouts = {}
         self.Icons = {}
+        self.cart = None
+        self.cart_activated = cart_activated
 
         # Importiere die Einstellungen
         from settings import Settings
         self.Settings = Settings("config.json")
+
+        # Lege Warenkorb fest
+        if self.cart_activated:
+            if parent != None:
+                if parent.cart != None:
+                    self.cart = parent.cart
+                else:
+                    self.create_cart()
+            else:
+                self.create_cart()
 
         # Initialisiere die UI und den Mainloop
         self.init_window_ui()
@@ -119,6 +132,13 @@ class Window(QDialog):
         self.Buttons["next"] = self.make_button(text = text, icon = "right", action = self.next)
         self.Layouts["hboxnavbar"].addWidget(self.Buttons["next"])
 
+    # Warenkorb
+    def create_cart (self):
+        self.cart = Cart()
+        self.cart.save()
+
+    def update_cart (self):
+        self.cart.save()
 
     # Uhrzeitfunktionen
     def update_time (self, time_label):
@@ -136,6 +156,8 @@ class Window(QDialog):
     def must_check (self):
         """ Führt den Mainloop durch """
         self.update_time(self.Labels["time"])
+        if self.cart_activated:
+            self.update_cart()
         self.WindowMustCheckTimer.start(100)
         self.updated_must_check()
 

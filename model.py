@@ -13,9 +13,9 @@ class AvailableTicket(Model):
     price = FloatField()
 
 class Cart(Model):
-    created_at = DateTimeField(default=datetime.datetime.now)
-    total_price = FloatField()
-    pay = ForeignKeyField(Pay, related_name = "cart")
+    created_at = DateTimeField(default = datetime.datetime.now)
+    total_price = FloatField(default = 0)
+    pay = ForeignKeyField(Pay, related_name = "cart", null = True)
 
 class Ticket(Model):
     barcode = CharField()
@@ -31,7 +31,7 @@ class Ticket(Model):
 db.connect()
 
 # Erstelle Tabellen
-db.create_tables([AvailableTicket], safe = True)
+db.create_tables([AvailableTicket, Pay, Ticket, Cart], safe = True)
 
 # Schließe Verbindung
 db.close()
