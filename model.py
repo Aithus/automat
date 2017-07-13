@@ -23,10 +23,6 @@ class Ticket(Model):
     ticket_type = ForeignKeyField(AvailableTicket)
     cart = ForeignKeyField(Cart, related_name = "tickets")
 
-
-
-
-
 # Verbinde zur DB
 db.connect()
 

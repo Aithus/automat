@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QHBoxLayout, QVBoxLayout,
-    QLineEdit, QPushButton, QLabel,
+    QLineEdit, QPushButton, QLabel, QListWidget,
     QMessageBox,
     QApplication, QDialog,
     QGridLayout, QSizePolicy)
@@ -18,6 +18,11 @@ class Window(QDialog):
         self.Edits = {}
         self.Layouts = {}
         self.Icons = {}
+        self.OtherWidgets = {}
+
+        self.color_green = "#5cb85c";
+        self.color_red = "#d9534f";
+
         self.cart = None
         self.cart_activated = cart_activated
 
@@ -96,7 +101,7 @@ class Window(QDialog):
         self.Layouts["vbox"].addLayout(self.Layouts["vboxnavbar"])
         self.show()
 
-    def make_button (self, text, icon = "", action = None, height = 70):
+    def make_button (self, text, icon = "", action = None, height = 70, color = ""):
         """ Erstellt einen vordefinierten Button """
         button = QPushButton(text)
         if icon != "":
@@ -108,6 +113,8 @@ class Window(QDialog):
             button.setFixedHeight(height)
         else:
             button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        if color != "":
+            button.setStyleSheet("background-color:" + color + ";");
         return button
 
     # Navigationsleiste
@@ -115,7 +122,7 @@ class Window(QDialog):
         self.close()
 
     def add_cancel_button (self, text = "Abbrechen"):
-        self.Buttons["cancel"] = self.make_button(text = text, icon = "cancel", action = self.cancel)
+        self.Buttons["cancel"] = self.make_button(text = text, icon = "cancel", action = self.cancel, color = self.color_red)
         self.Layouts["hboxnavbar"].addWidget(self.Buttons["cancel"])
 
     def back (self):
@@ -129,7 +136,7 @@ class Window(QDialog):
         pass
 
     def add_next_button(self, text = "Weiter"):
-        self.Buttons["next"] = self.make_button(text = text, icon = "right", action = self.next)
+        self.Buttons["next"] = self.make_button(text = text, icon = "right", action = self.next, color = self.color_green)
         self.Layouts["hboxnavbar"].addWidget(self.Buttons["next"])
 
     # Warenkorb

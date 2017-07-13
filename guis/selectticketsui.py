@@ -1,9 +1,14 @@
 from guis.window import *
+from guis.checkticketsui import *
 
 class SelectTicketsUI(Window):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.init_ui()
+
+    def next (self):
+        ctui = CheckTicketsUI(self)
+        self.hide()
 
     def get_available_tickets_formated (self):
         """ Gibt alle "verfügbaren" Tickets vorformatiert zurück """
@@ -16,11 +21,19 @@ class SelectTicketsUI(Window):
         return names
 
     def add_to_cart (self):
+        import time, model
+
+        # Get ticket name
         sender_text = self.sender().text()
         ticket_name = sender_text.split("\n")[0]
-        self.Labels["info"].setText(ticket_name)
 
-    
+        # Get ticket from available tickets per ticket name
+        available_ticket = model.AvailableTicket.get(model.AvailableTicket.name == ticket_name)
+
+        # Save ticket in cart
+        if available_ticket != False:
+            model.Ticket.create(barcode = time.time(), ticket_type = available_ticket, cart = self.cart)
+            self.Labels["info"].setText("<h1>Folgendes Ticket wurde dem Warenkorb hinzugefügt: " + ticket_name + "</h1>")
 
     def init_ui(self):
         # Create information label
