@@ -13,7 +13,7 @@ class CheckTicketsUI(Window):
 
         # Get all tickets in the cart
         for ticket in model.Ticket.select().where(model.Ticket.cart == self.cart):
-            ticket_info = ticket.ticket_type.name + " > " + str(ticket.ticket_type.price) + " €"
+            ticket_info = ticket.ticket_type.name + " > " + str(ticket.ticket_type.price) + " € (" + ticket.barcode + ")"
             tickets.append(ticket_info)
 
         return tickets
@@ -26,12 +26,18 @@ class CheckTicketsUI(Window):
         """ Löscht das aktuell ausgewählte Ticket """
         import model
 
+        # Get ticket barcode
         item = self.OtherWidgets["cart_list"].selectedItems()[0].text()
-        ticket = item.split(" >")[0]
+        ticket = item.split("(")[1].replace(")", "")
 
-        print("+"+ticket+"+")
-        # if nicht zu viel
-        model.Ticket.delete().where(model.Ticket.ticket_type.name == ticket, model.Ticket.cart == self.cart)
+        if self.OtherWidgets["cart_list"].count() > 1:
+            query = model.Ticket.delete().where(model.Ticket.barcode == ticket, model.Ticket.cart == self.cart)
+            query.execute()
+            self.Labels["info2"].setText("<h2>Das Ticket wurde erfolgreich entfernt!</h2>")
+        else:
+            self.Labels["info2"].setText("<h2>Sie müssen mindestens ein Ticket im Warenkorb haben!</h2>")
+
+        # Update view
         self.update_cart_list()
 
     def init_ui(self):
