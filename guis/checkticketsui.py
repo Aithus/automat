@@ -1,12 +1,14 @@
 from guis.window import *
 
 class CheckTicketsUI(Window):
+    
     def __init__(self, parent = None):
         super().__init__(parent)
         self.init_ui()
 
     def get_ticket_list (self):
         """ Gibt einen Infostring für alle Tickets im Warenkorb zurück """
+
         import model
 
         tickets = []
@@ -19,11 +21,14 @@ class CheckTicketsUI(Window):
         return tickets
 
     def update_cart_list(self):
+        """ Aktualisiert die Ticketliste im Warenkorb """
+
         self.OtherWidgets["cart_list"].clear()
         self.OtherWidgets["cart_list"].addItems(self.get_ticket_list())
 
     def delete_ticket(self):
         """ Löscht das aktuell ausgewählte Ticket """
+
         import model
 
         # Get ticket barcode
@@ -31,6 +36,7 @@ class CheckTicketsUI(Window):
         ticket = item.split("(")[1].replace(")", "")
 
         if self.OtherWidgets["cart_list"].count() > 1:
+            # Delete ticket
             query = model.Ticket.delete().where(model.Ticket.barcode == ticket, model.Ticket.cart == self.cart)
             query.execute()
             self.Labels["info2"].setText("<h2>Das Ticket wurde erfolgreich entfernt!</h2>")
@@ -41,6 +47,8 @@ class CheckTicketsUI(Window):
         self.update_cart_list()
 
     def init_ui(self):
+        """ Initialisiert die UI """
+
         # Create information label
         self.Labels["info"] = QLabel("<h1>Bitte überprüfen Sie ihre Tickets ...</h1>")
         self.Labels["info2"] = QLabel("<h3>Wenn Sie ein Element entfernen wollen, wählen Sie es aus und drücken auf 'Ticket entfernen', wenn alles stimmt, drücken Sie auf 'Bezahlen'!</h3>")

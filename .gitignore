@@ -1,4 +1,4 @@
 __pycache__
 guis/__pycache__
-data.db
-peewee.db
+data/data.db
+data/peewee.db

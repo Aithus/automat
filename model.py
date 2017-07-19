@@ -2,10 +2,12 @@ from peewee import *
 import datetime
 
 # Initialisiere DB
-db = SqliteDatabase('data.db')
+db = SqliteDatabase('data/data.db')
+
+# Initialisiere Modelle
 class Pay(Model):
     method = IntegerField()
-    payed_at = DateTimeField(default=datetime.datetime.now)
+    payed_at = DateTimeField(default = datetime.datetime.now)
 
 class AvailableTicket(Model):
     position = IntegerField()
