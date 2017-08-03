@@ -1,4 +1,5 @@
 from guis.window import *
+from guis.paymethodcouponui import *
 
 class SelectPayMethodUI(Window):
     def __init__(self, parent = None):
