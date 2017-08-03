@@ -9,7 +9,7 @@ class SelectPayMethodUI(Window):
         self.init_ui()
 
     def open_cash(self):
-        pass
+        msg_box = QMessageBox.about(self, "Fehler", "Diese Zahlungsmethode wird aktuell noch nicht unterstützt. Bitte wählen Sie eine andere.")
 
     def open_credit_card(self):
         pmcd = PayMethodCreditCardUI(self)
