@@ -25,7 +25,7 @@ for i in range(0,9):
     couponAvailable = couponsAvailable[i]
     couponBarcode = barcodes[i]
 
-    Coupon.create(position = i, barcode = couponBarcode, value = money, cAvailable = couponAvailable)
+    Coupon.create(position = i, barcode = couponBarcode, value = money, available = couponAvailable)
 
 for i in range(0,9):
     ticketname = ticketnames[i]

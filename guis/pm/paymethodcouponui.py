@@ -1,9 +1,35 @@
 from guis.window import *
+from guis.errorwindow import *
 
 class PayMethodCouponUI(Window):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.init_ui()
+
+    def get_coupon(self, barcode):
+        import model
+
+        money_on_coupon = 0.0
+        activated = False
+        price = self.cart.get_total_price()
+        for coupon in model.Coupon.select().where(model.Coupon.barcode == barcode):
+            activated = coupon.available
+            money_on_coupon = coupon.value
+            break
+
+        if activated != False:
+            if money_on_coupon >= price:
+            else:
+                ErrorWindow("Fehlermeldung")
+        else:
+            # Error
+            pass
+
+    def do (self):
+        barcode = self.TextEdits["eingabe"].text()
+        if len(barcode) == 13:
+            self.TextEdits["eingabe"].clear()
+            self.get_coupon(barcode)
 
     def init_ui(self):
 
@@ -24,5 +50,4 @@ class PayMethodCouponUI(Window):
         self.finish_ui()
 
         self.TextEdits["eingabe"].grabKeyboard()
-
-        self.update()
+        self.TextEdits["eingabe"].textChanged.connect(self.do)

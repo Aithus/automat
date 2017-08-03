@@ -18,7 +18,7 @@ class Coupon(Model):
     position = IntegerField()
     barcode = IntegerField()
     value = FloatField()
-    cAvailable = IntegerField()
+    available = BooleanField()
 
 class Cart(Model):
     created_at = DateTimeField(default = datetime.datetime.now)
@@ -59,7 +59,7 @@ class Message(Model):
 db.connect()
 
 # Erstelle Tabellen
-db.create_tables([AvailableTicket, Pay, Ticket, Cart], safe = True)
+db.create_tables([AvailableTicket, Pay, Ticket, Cart, Coupon], safe = True)
 
 # Schließe Verbindung
 db.close()
