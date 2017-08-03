@@ -30,9 +30,12 @@ class SelectTicketsUI(Window):
         # Get ticket from available tickets per ticket name
         available_ticket = model.AvailableTicket.get(model.AvailableTicket.name == ticket_name)
 
+        barcode = str(round(time.time()*100,0)).split(".")[0] + "00000000000"
+        barcode = barcode[0:13]
+
         # Save ticket in cart
         if available_ticket != False:
-            model.Ticket.create(barcode = time.time(), ticket_type = available_ticket, cart = self.cart)
+            model.Ticket.create(barcode = barcode, ticket_type = available_ticket, cart = self.cart)
             self.Labels["info"].setText("<h1>Folgendes Ticket wurde dem Warenkorb hinzugefügt: " + ticket_name + "</h1>")
 
     def init_ui(self):
