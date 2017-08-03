@@ -38,10 +38,9 @@ class PayMethodCouponUI(Window):
 
                     print("PAY!")
 
-                    fnui = FinishUI(self)
-                    self.hide()
 
-                    msg_box = QMessageBox.about(self, "Erfolg", "Ihre Zahlung ist erfolgreich ausgeführt worden. Ihre Gutscheinkarte hat nun einen Kontostand von " + str(coupon.value) + " €.")
+                    fnui = FinishUI(self, coupon.value)
+                    self.hide()
 
                 else:
                     print("FEHLER")
@@ -64,7 +63,7 @@ class PayMethodCouponUI(Window):
 
         self.TextEdits["eingabe"] = QLineEdit()
         self.Layouts["vbox"].addWidget(self.TextEdits["eingabe"])
-
+        self.Layouts["vbox"].addStretch()
         self.add_cancel_button()
 
         self.finish_ui()
