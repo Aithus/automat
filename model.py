@@ -16,8 +16,15 @@ class AvailableTicket(Model):
 
 class Cart(Model):
     created_at = DateTimeField(default = datetime.datetime.now)
-    total_price = FloatField(default = 0)
     pay = ForeignKeyField(Pay, related_name = "cart", null = True)
+
+    def get_total_price(self):
+        """ Gibt die Summe des Warenkorbs zurück """
+        
+        total_price = 0
+        for ticket in Ticket.select().where(Ticket.cart == self):
+            total_price += ticket.ticket_type.price
+        return total_price
 
 class Ticket(Model):
     barcode = CharField()
