@@ -20,5 +20,5 @@ class StartUI(Window):
 
         self.Buttons["useticket"] = self.make_button(text = "Ticket einlösen", action = self.open_use_ticket, height = "full")
         self.Layouts["vbox"].addWidget(self.Buttons["useticket"])
-        
+
         self.finish_ui()

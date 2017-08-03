@@ -1,5 +1,7 @@
 from guis.window import *
-from guis.paymethodcouponui import *
+from guis.pm.paymethodcouponui import *
+from guis.pm.paymethodcreditcardui import *
+from guis.pm.paymethodcashui import *
 
 class SelectPayMethodUI(Window):
     def __init__(self, parent = None):
@@ -10,7 +12,8 @@ class SelectPayMethodUI(Window):
         pass
 
     def open_credit_card(self):
-        pass
+        pmcd = PayMethodCreditCardUI(self)
+        self.hide()
 
     def open_coupon(self):
         pmc = PayMethodCouponUI(self)
