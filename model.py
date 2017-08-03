@@ -37,13 +37,13 @@ class Device(Model):
 
 class Message(Model):
     message = CharField()
-    device = ForeignKeyField(Device, related_name = "messages"e)
+    device = ForeignKeyField(Device, related_name = "messages")
 
     def send(self, message, device):
         Message.create(message = message, device = device)
 
     def has(self, message, device):
-        for msg in Message.select().where(Message.device = device):
+        for msg in Message.select().where(Message.device == device):
             if msg.message == message:
                 return True
                 msg.delete()
