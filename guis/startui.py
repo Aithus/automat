@@ -1,6 +1,5 @@
 from guis.window import *
 from guis.selectticketsui import *
-import sys
 
 class StartUI(Window):
     def __init__(self, parent = None):
@@ -20,5 +19,5 @@ class StartUI(Window):
 
         self.Buttons["useticket"] = self.make_button(text = "Ticket einlösen", action = self.open_use_ticket, height = "full")
         self.Layouts["vbox"].addWidget(self.Buttons["useticket"])
-        
+
         self.finish_ui()

@@ -20,7 +20,7 @@ class Cart(Model):
 
     def get_total_price(self):
         """ Gibt die Summe des Warenkorbs zurück """
-        
+
         total_price = 0
         for ticket in Ticket.select().where(Ticket.cart == self):
             total_price += ticket.ticket_type.price
@@ -31,6 +31,23 @@ class Ticket(Model):
     used = BooleanField(default = False)
     ticket_type = ForeignKeyField(AvailableTicket)
     cart = ForeignKeyField(Cart, related_name = "tickets")
+
+class Device(Model):
+    name = CharField()
+
+class Message(Model):
+    message = CharField()
+    device = ForeignKeyField(Device, related_name = "messages"e)
+
+    def send(self, message, device):
+        Message.create(message = message, device = device)
+
+    def has_message(self, message, device):
+        for msg in Message.select().where(Message.device = device):
+            if msg.message == message:
+                return True
+                msg.delete()
+        return False
 
 # Verbinde zur DB
 db.connect()
