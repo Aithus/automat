@@ -7,6 +7,12 @@ class ScanUI(Window):
 
     def init_ui(self):
 
-        self.add_cancel_button()
+        self.Labels["information"] = QLabel()
+        self.Layouts["vbox"].addWidget(self.Labels["information"])
+        self.Labels["pic"] = QLabel()
+        self.Layouts["vbox"].addWidget(self.Labels["pic"])
+
+        self.TextEdits["eingabe"] = QTextEdit()
+        self.Layouts["vbox"].addWidget(self.TextEdits["eingabe"])
 
         self.finish_ui()

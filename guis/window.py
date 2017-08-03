@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QLineEdit, QPushButton, QLabel, QListWidget,
     QMessageBox,
     QApplication, QDialog,
-    QGridLayout, QSizePolicy)
+    QGridLayout, QSizePolicy, QTextEdit)
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtCore import *
 from model import *
@@ -15,10 +15,10 @@ class Window(QDialog):
         super().__init__(parent)
         self.Labels = {}
         self.Buttons = {}
-        self.Edits = {}
         self.Layouts = {}
         self.Icons = {}
         self.OtherWidgets = {}
+        self.TextEdits = {}
 
         self.color_green = "#5cb85c";
         self.color_red = "#d9534f";

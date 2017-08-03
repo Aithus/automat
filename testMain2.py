@@ -2,12 +2,12 @@
 
 import sys
 
-from guis.scanui import *
+from guis.paymethodcouponui import *
 
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     # Zeige Fenster
-    startui = ScanUI()
+    startui = PayMethodCouponUI()
 
     sys.exit(app.exec_())
