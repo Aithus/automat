@@ -1,7 +1,7 @@
 from guis.window import *
 
 class CheckTicketsUI(Window):
-    
+
     def __init__(self, parent = None):
         super().__init__(parent)
         self.init_ui()
@@ -31,17 +31,18 @@ class CheckTicketsUI(Window):
 
         import model
 
-        # Get ticket barcode
-        item = self.OtherWidgets["cart_list"].selectedItems()[0].text()
-        ticket = item.split("(")[1].replace(")", "")
+        if (len(self.OtherWidgets["cart_list"].selectedItems()) > 0):
+            # Get ticket barcode
+            item = self.OtherWidgets["cart_list"].selectedItems()[0].text()
+            ticket = item.split("(")[1].replace(")", "")
 
-        if self.OtherWidgets["cart_list"].count() > 1:
-            # Delete ticket
-            query = model.Ticket.delete().where(model.Ticket.barcode == ticket, model.Ticket.cart == self.cart)
-            query.execute()
-            self.Labels["info2"].setText("<h2>Das Ticket wurde erfolgreich entfernt!</h2>")
-        else:
-            self.Labels["info2"].setText("<h2>Sie müssen mindestens ein Ticket im Warenkorb haben!</h2>")
+            if self.OtherWidgets["cart_list"].count() > 1:
+                # Delete ticket
+                query = model.Ticket.delete().where(model.Ticket.barcode == ticket, model.Ticket.cart == self.cart)
+                query.execute()
+                self.Labels["info2"].setText("<h2>Das Ticket wurde erfolgreich entfernt!</h2>")
+            else:
+                self.Labels["info2"].setText("<h2>Sie müssen mindestens ein Ticket im Warenkorb haben!</h2>")
 
         # Update view
         self.update_cart_list()
