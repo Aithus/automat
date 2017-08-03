@@ -26,6 +26,12 @@ class CheckTicketsUI(Window):
         self.OtherWidgets["cart_list"].clear()
         self.OtherWidgets["cart_list"].addItems(self.get_ticket_list())
 
+    def update_total_price(self):
+        """ Aktualisiert die Summe """
+
+        total_price = self.cart.get_total_price()
+        self.Labels["total_price"].setText("<h1>" + str(total_price) + " €</h1>")
+
     def delete_ticket(self):
         """ Löscht das aktuell ausgewählte Ticket """
 
@@ -46,6 +52,7 @@ class CheckTicketsUI(Window):
 
         # Update view
         self.update_cart_list()
+        self.update_total_price()
 
     def init_ui(self):
         """ Initialisiert die UI """
@@ -59,6 +66,16 @@ class CheckTicketsUI(Window):
         self.OtherWidgets["cart_list"].setStyleSheet("font-size: 30px;")
         self.update_cart_list()
 
+        # Create total price label
+        self.Labels["info_total_price"] = QLabel("<h1>Summe</h1>")
+        self.Labels["total_price"] = QLabel("")
+        self.Labels["total_price"].setAlignment(Qt.AlignRight)
+        self.update_total_price()
+
+        self.Layouts["total_price"] = QHBoxLayout()
+        self.Layouts["total_price"].addWidget(self.Labels["info_total_price"])
+        self.Layouts["total_price"].addWidget(self.Labels["total_price"])
+
         # Create delete button
         self.Buttons["delete_ticket"] = self.make_button("Ticket entfernen", icon = "cancel", height = 70, action = self.delete_ticket, color = self.color_red)
 
@@ -67,6 +84,8 @@ class CheckTicketsUI(Window):
         self.Layouts["vbox"].addWidget(self.Labels["info2"])
 
         self.Layouts["vbox"].addWidget(self.OtherWidgets["cart_list"])
+
+        self.Layouts["vbox"].addLayout(self.Layouts["total_price"])
 
         self.Layouts["vbox"].addWidget(self.Buttons["delete_ticket"])
 
