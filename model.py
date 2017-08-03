@@ -14,6 +14,12 @@ class AvailableTicket(Model):
     name = CharField()
     price = FloatField()
 
+class Coupon(Model):
+    position = IntegerField()
+    barcode = IntegerField()
+    value = FloatField()
+    cAvailable = IntegerField()
+
 class Cart(Model):
     created_at = DateTimeField(default = datetime.datetime.now)
     pay = ForeignKeyField(Pay, related_name = "cart", null = True)
