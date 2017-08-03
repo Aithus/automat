@@ -14,5 +14,3 @@ class ScanUI(Window):
 
         self.TextEdits["eingabe"] = QTextEdit()
         self.Layouts["vbox"].addWidget(self.TextEdits["eingabe"])
-
-        self.finish_ui()
