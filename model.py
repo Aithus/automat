@@ -6,7 +6,8 @@ db = SqliteDatabase('data/data.db')
 
 # Initialisiere Modelle
 class Pay(Model):
-    method = IntegerField()
+    method = IntegerField() # 0 (Bar), 1 (Kreditkarte), 2 (Gutscheinkarte)
+    method_barcode = IntegerField()
     payed_at = DateTimeField(default = datetime.datetime.now)
 
 class AvailableTicket(Model):
