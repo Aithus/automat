@@ -9,10 +9,10 @@ from PyQt5.QtCore import *
 from model import *
 
 class ErrorWindow(QDialog):
-    def __init__(self, error_message):
+    def __init__(self, parent = None, error_message = ""):
         """ Initialisiere das Fenster """
 
-        super().__init__()
+        super().__init__(parent)
 
         self.error_message = error_message
 
@@ -25,29 +25,30 @@ class ErrorWindow(QDialog):
     # Allgemeine UI-Funktionen
     def init_window_ui (self):
 
-        # Definiere Icons
-        self.Icons["cancel"] = QIcon("res/img/cancel.png")
-
         message_label = QLabel(self.error_message)
 
-        button = make_button(text = "OK", action = self.hide, height = full)
+        button = self.make_button(text = "OK", action = self.hide, height = "full")
 
         # Initialisiere vertikales Layout
         self.vbox = QVBoxLayout()
+        self.vbox.addWidget(message_label)
+        self.vbox.addWidget(button)
 
         # Schrift für Buttons anpassen
         self.set_buttons_style("font-size: 25pt;")
 
         # Setze Layout für das Fenster
-        self.setLayout(self.Layouts["vbox"])
+        self.setLayout(self.vbox)
+
+        self.resize(250, 150)
+
+        self.finish_ui()
 
     def set_buttons_style (self, style):
         css = "QPushButton { " + style + " }"
         self.setStyleSheet(css)
 
     def finish_ui (self):
-        #self.Layouts["vbox"].addStretch()
-        self.Layouts["vbox"].addLayout(self.Layouts["vboxnavbar"])
         self.show()
 
     def make_button (self, text, icon = "", action = None, height = 70, color = ""):

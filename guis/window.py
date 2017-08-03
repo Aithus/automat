@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QDesktopWidget,
     QLineEdit, QPushButton, QLabel, QListWidget,
     QMessageBox,
     QApplication, QDialog,
-    QGridLayout, QSizePolicy, QTextEdit)
+    QGridLayout, QSizePolicy, QTextEdit, QMessageBox)
 from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtCore import *
 from model import *
@@ -60,7 +60,7 @@ class Window(QDialog):
         self.Icons["cash"] = QIcon("res/img/cash.png")
         self.Icons["coupon"] = QIcon("res/img/coupon.png")
         self.Icons["credit_card"] = QIcon("res/img/credit_card.png")
-        
+
         # Definiere Labels für Titelleiste
         self.Labels["title"] = QLabel("<h1>" + self.Settings.get("company_name") + "</h1>")
         self.Labels["title"].setAlignment(Qt.AlignLeft)

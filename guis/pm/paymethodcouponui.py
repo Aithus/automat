@@ -1,5 +1,5 @@
 from guis.window import *
-from guis.errorwindow import *
+import guis.errorwindow as ew
 
 class PayMethodCouponUI(Window):
     def __init__(self, parent = None):
@@ -19,8 +19,13 @@ class PayMethodCouponUI(Window):
 
         if activated != False:
             if money_on_coupon >= price:
+                pass
             else:
-                ErrorWindow("Fehlermeldung")
+                print("FEHLER")
+                msg_box = QMessageBox()
+                msg_box.setIcon(QMessageBox.Critical)
+                msg_box.setText("Sie haben zu wenig Guthaben auf ihrer Gutscheinkarte. Bitte fügen Sie weitere Karten hinzu oder nutzen Sie eine andere Zahlungsmethode.")
+                msg_box.exec()
         else:
             # Error
             pass
@@ -33,17 +38,13 @@ class PayMethodCouponUI(Window):
 
     def init_ui(self):
 
-        self.Labels["information"] = QLabel("<h1>Bitte legen Sie ihren Gutschein auf das leuchtende Scannerfeld:</h1>")
-        self.Layouts["vbox"].addWidget(self.Labels["information"])
+        self.Labels["info"] = QLabel("<h1>Bitte legen Sie ihren Gutschein auf das leuchtende Scannerfeld:</h1>")
+        self.Layouts["vbox"].addWidget(self.Labels["info"])
         self.Labels["pic"] = QLabel()
         self.Layouts["vbox"].addWidget(self.Labels["pic"])
 
         self.TextEdits["eingabe"] = QLineEdit()
         self.Layouts["vbox"].addWidget(self.TextEdits["eingabe"])
-
-##        self.TextEdits["eingabe"] = QTextEdit()
-##        self.Layouts["vbox"].addWidget(self.TextEdits["eingabe"])
-##        self.TextEdits["eingabe"].setFocus()
 
         self.add_cancel_button()
 
