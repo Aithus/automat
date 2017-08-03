@@ -1,8 +1,8 @@
 from guis.window import *
 
 class SelectPayMethodUI(Window):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.init_ui()
 
     def init_ui(self):

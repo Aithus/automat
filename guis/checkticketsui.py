@@ -1,10 +1,15 @@
 from guis.window import *
+from guis.selectpaymethodui import *
 
 class CheckTicketsUI(Window):
 
     def __init__(self, parent = None):
         super().__init__(parent)
         self.init_ui()
+
+    def next (self):
+        spmui = SelectPayMethodUI(self)
+        self.hide()
 
     def get_ticket_list (self):
         """ Gibt einen Infostring für alle Tickets im Warenkorb zurück """
