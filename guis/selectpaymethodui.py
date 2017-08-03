@@ -12,16 +12,17 @@ class SelectPayMethodUI(Window):
         pass
 
     def open_coupon(self):
-        pass
+        pmc = PayMethodCouponUI(self)
+        self.hide()
 
     def init_ui(self):
-        self.Buttons["cash"] = self.make_button(text = "Barzahlung mit Scheinen", action = self.open_cash, height = "full")
+        self.Buttons["cash"] = self.make_button(text = "Barzahlung mit Scheinen", action = self.open_cash, height = "full", icon = "cash")
         self.Layouts["vbox"].addWidget(self.Buttons["cash"])
 
-        self.Buttons["credit_card"] = self.make_button(text = "Ticket einlösen", action = self.open_credit_card, height = "full")
+        self.Buttons["credit_card"] = self.make_button(text = "Zahlung mit Kreditkarte", action = self.open_credit_card, height = "full", icon = "credit_card")
         self.Layouts["vbox"].addWidget(self.Buttons["credit_card"])
 
-        self.Buttons["coupon"] = self.make_button(text = "Ticket einlösen", action = self.open_coupon, height = "full")
+        self.Buttons["coupon"] = self.make_button(text = "Gutschein einlösen", action = self.open_coupon, height = "full", icon = "coupon")
         self.Layouts["vbox"].addWidget(self.Buttons["coupon"])
 
         self.add_cancel_button()
