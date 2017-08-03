@@ -42,7 +42,7 @@ class Message(Model):
     def send(self, message, device):
         Message.create(message = message, device = device)
 
-    def has_message(self, message, device):
+    def has(self, message, device):
         for msg in Message.select().where(Message.device = device):
             if msg.message == message:
                 return True
