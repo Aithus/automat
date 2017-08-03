@@ -1,7 +1,7 @@
 from guis.window import *
 
 class ScanUI(Window):
-    def __init__(self):
+    def __init__(self, parent = None):
         super().__init__()
         self.init_ui()
 
