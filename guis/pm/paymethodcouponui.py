@@ -9,13 +9,18 @@ class PayMethodCouponUI(Window):
     def get_coupon(self, barcode):
         import model
 
+        exist = False;
         money_on_coupon = 0.0
         activated = False
         price = self.cart.get_total_price()
         for coupon in model.Coupon.select().where(model.Coupon.barcode == barcode):
             activated = coupon.available
             money_on_coupon = coupon.value
+            exist = True;
             break
+
+        if exist == False:
+            msg_box = QMessageBox.about(self, "Fehler", "Ihre Gutscheinkarte funktioniert leider nicht. Bitte benutzen Sie eine andere Karte oder rufen Sie einen Mitarbeiter.")
 
         if activated != False:
             if money_on_coupon >= price:
@@ -25,7 +30,7 @@ class PayMethodCouponUI(Window):
                 msg_box = QMessageBox()
                 msg_box.setIcon(QMessageBox.Critical)
                 msg_box.setText("Sie haben zu wenig Guthaben auf ihrer Gutscheinkarte. Bitte fügen Sie weitere Karten hinzu oder nutzen Sie eine andere Zahlungsmethode.")
-                msg_box.exec()
+                msg_box.exec_()
         else:
             # Error
             pass
