@@ -57,7 +57,10 @@ class Window(QDialog):
         self.Icons["cancel"] = QIcon("res/img/cancel.png")
         self.Icons["left"] = QIcon("res/img/left.png")
         self.Icons["right"] = QIcon("res/img/right.png")
-
+        self.Icons["cash"] = QIcon("res/img/cash.png")
+        self.Icons["coupon"] = QIcon("res/img/coupon.png")
+        self.Icons["credit_card"] = QIcon("res/img/credit_card.png")
+        
         # Definiere Labels für Titelleiste
         self.Labels["title"] = QLabel("<h1>" + self.Settings.get("company_name") + "</h1>")
         self.Labels["title"].setAlignment(Qt.AlignLeft)
