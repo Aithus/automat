@@ -1,5 +1,4 @@
 from guis.window import *
-import guis.errorwindow as ew
 from guis.finishui import *
 
 class PayMethodCouponUI(Window):
@@ -10,43 +9,41 @@ class PayMethodCouponUI(Window):
     def get_coupon(self, barcode):
         import model
 
-        coupon_id = 0
-        exist = False;
-        money_on_coupon = 0.0
-        activated = False
         price = self.cart.get_total_price()
+
+        exist = False;
         for coupon in model.Coupon.select().where(model.Coupon.barcode == barcode):
-            activated = coupon.available
-            coupon_id = coupon.position
             exist = True;
             break
 
         # Error Code: 001 = Karte nicht aktiviert; 002 = Zu wenig Guthaben; 003 = Gutscheinkarte existiert im System nicht
 
-        if exist == False:
-            msg_box = QMessageBox.about(self, "Fehler", "Ihre Gutscheinkarte funktioniert leider nicht. Bitte benutzen Sie eine andere Karte oder rufen Sie einen Mitarbeiter. (Fehlercode 003)")
+        if exist == False: # existiert
+            msg_003 = "Ihre Gutscheinkarte funktioniert leider nicht. Bitte benutzen Sie eine andere Karte oder rufen Sie einen Mitarbeiter. (Fehlercode 003)"
+            msg_box = QMessageBox.about(self, "Fehler", msg_003)
             # Funktion verlassen
         else:
-            if activated != False:
-                if coupon.value >= price:
+            if coupon.available != False: # aktiviert
+                if coupon.value >= price: # genügend Guthaben vorhanden
+                    # Neuen Gutscheinwert berechnen
                     coupon.value -= price
                     coupon.save()
 
+                    # Zahlung eintragen
                     pay = model.Pay.create(method = 2, method_barcode = coupon.barcode)
                     self.cart.pay = pay
                     self.cart.save()
 
-                    print("PAY!")
-
-
+                    # Druckoberfläche starten
                     fnui = FinishUI(self, coupon.value)
                     self.hide()
 
-                else:
-                    print("FEHLER")
-                    msg_box = QMessageBox.about(self, "Fehler", "Sie haben zu wenig Guthaben auf ihrer Gutscheinkarte. Bitte fügen Sie weitere Karten hinzu oder nutzen Sie eine andere Zahlungsmethode. Ihr derzeitiger Kontostand beträgt " + str(coupon.value) + " €. (Fehlercode 002)")
-            else:
-                msg_box = QMessageBox.about(self, "Fehler", "Ihre Gutscheinkarte ist nicht aktiviert. Bitte rufen Sie einen Mitarbeiter oder benutzen Sie eine andere Karte. (Fehlercode 001)")
+                else: # Zu wenig Guthaben
+                    msg_002 = "Sie haben zu wenig Guthaben auf ihrer Gutscheinkarte. Bitte fügen Sie weitere Karten hinzu oder nutzen Sie eine andere Zahlungsmethode. Ihr derzeitiger Kontostand beträgt " + str(coupon.value) + " €. (Fehlercode 002)"
+                    msg_box = QMessageBox.about(self, "Fehler", msg_002)
+            else: # Nicht aktiviert
+                msg_001 = "Ihre Gutscheinkarte ist nicht aktiviert. Bitte rufen Sie einen Mitarbeiter oder benutzen Sie eine andere Karte. (Fehlercode 001)"
+                msg_box = QMessageBox.about(self, "Fehler", msg_001)
 
     def do (self):
         barcode = self.TextEdits["eingabe"].text()
