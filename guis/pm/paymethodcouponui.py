@@ -13,7 +13,7 @@ class PayMethodCouponUI(Window):
 
         exist = False;
         for coupon in model.Coupon.select().where(model.Coupon.barcode == barcode):
-            exist = True;
+            exist = True
             break
 
         # Error Code: 001 = Karte nicht aktiviert; 002 = Zu wenig Guthaben; 003 = Gutscheinkarte existiert im System nicht
@@ -30,12 +30,12 @@ class PayMethodCouponUI(Window):
                     coupon.save()
 
                     # Zahlung eintragen
-                    pay = model.Pay.create(method = 2, method_barcode = coupon.barcode)
+                    pay = model.Pay.create(method = PAY_METHOD_COUPON, method_barcode = coupon.barcode)
                     self.cart.pay = pay
                     self.cart.save()
 
                     # Druckoberfläche starten
-                    fnui = FinishUI(self, coupon.value)
+                    fnui = FinishUI(self, PAY_METHOD_COUPON, coupon.value)
                     self.hide()
 
                 else: # Zu wenig Guthaben

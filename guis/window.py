@@ -8,6 +8,11 @@ from PyQt5.QtGui import QIcon, QFont, QPixmap
 from PyQt5.QtCore import *
 from model import *
 
+# Konstanten
+PAY_METHOD_CASH = 0
+PAY_METHOD_CREDIT_CARD = 1
+PAY_METHOD_COUPON = 2
+
 class Window(QDialog):
     def __init__(self, parent = None, cart_activated = True):
         """ Initialisiere das Fenster """
